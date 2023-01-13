@@ -34,8 +34,8 @@ class Elasticsearch:
     def create_es_index(self):
         print(self.index)
         # Create ES template and index if not exist
-        for index in self.es.indices.get('*'):
-            print("index>>>>>>>>>>>>>>>>>>>>>", index)
+        # for index in self.es.indices.get('*'):
+        #     print("index>>>>>>>>>>>>>>>>>>>>>", index)
         try:
             mapping_custom = {
                 "settings": {

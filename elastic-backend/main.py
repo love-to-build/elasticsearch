@@ -33,7 +33,7 @@ def autocomplete(query: str = ""):
     return result
 
 
-@app.post("/string-query-search")
+@app.get("/string-query-search")
 async def string_query_seach(query: str = ""):
     if (est.es_healthcheck):
         result = string_query_search(query)

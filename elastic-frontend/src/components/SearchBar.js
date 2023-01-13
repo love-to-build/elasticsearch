@@ -1,6 +1,6 @@
-import React from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { AutoComplete, Input } from 'antd';
+import React from 'react';
 const renderTitle = (title) => (
   <span>
     {title}
@@ -32,36 +32,24 @@ const renderItem = (title, count) => ({
     </div>
   ),
 });
-const options = [
-  {
-    label: renderTitle('Libraries'),
-    options: [
-      renderItem('AntDesign', 10000),
-      renderItem('AntDesign UI', 10600),
-    ],
-  },
-  {
-    label: renderTitle('Solutions'),
-    options: [
-      renderItem('AntDesign UI FAQ', 60100),
-      renderItem('AntDesign FAQ', 30010),
-    ],
-  },
-  {
-    label: renderTitle('Articles'),
-    options: [renderItem('AntDesign design language', 100000)],
-  },
-];
-const SearchBar = () => (
-  <AutoComplete
-    popupClassName='certain-category-search-dropdown'
-    dropdownMatchSelectWidth={500}
-    style={{
-      width: 250,
-    }}
-    options={options}
-  >
-    <Input.Search size='large' placeholder='search here' />
-  </AutoComplete>
-);
+
+const SearchBar = ({ inputValue, options, onSelect, onChange }) => {
+  console.log('value and options ', inputValue, 'input value ', options);
+  return (
+    <AutoComplete
+      value={inputValue}
+      options={options}
+      autoFocus={true}
+      onSelect={onSelect}
+      onChange={onChange}
+      popupClassName='certain-category-search-dropdown'
+      dropdownMatchSelectWidth={500}
+      style={{
+        width: 300,
+      }}
+    >
+      <Input.Search size='large' placeholder='search here' />
+    </AutoComplete>
+  );
+};
 export default SearchBar;

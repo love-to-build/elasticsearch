@@ -1,7 +1,6 @@
-import requests
 import json
 import elasticsearch
-
+import requests
 
 index = "movies"
 es = elasticsearch.Elasticsearch(["http://localhost:9200"])
@@ -18,32 +17,24 @@ def autocomplete_helper(query):
                 "completion": {
                     "field": "title",
                     "fuzzy": {
-                        "fuzziness": 2
+                        "fuzziness": 4,
                     }
                 }
             }
         }
     }
+
     # payload = json.dumps(payload)
     results = es.search(index=index, body=query)
     suggestions = results["suggest"]["title-suggest"][0]["options"]
     titles = []
+    i = 1
     for suggestion in suggestions:
-        print("sugestioins >>>>>>>>>>>>>>>>>>>>>", suggestion["text"])
-        titles.append(suggestion['text'])
-    # if response.status_code == 200:
-    #     response = json.loads(response.text)
-    #     print("response :::::::", response)
-    #     options = response["suggest"]["movie-suggest"][0]["options"]
-    #     search_id = 1
-    #     for option in options:
-    #         titles.append(
-    #             {
-    #                 "id": search_id,
-    #                 "value": option["text"]
-    #             }
-    #         )
-    #         search_id += 1
+        temp = {}
+        temp['lable'] = suggestion["text"]
+        temp['value'] = suggestion['_id']
+        titles.append(temp)
+
     return titles
 
 
@@ -53,14 +44,13 @@ def string_query_search(query):
             "query_string": {
                 "analyze_wildcard": True,
                 "query": query,
-                "fields": ["title", "desc"]
+                "fields": ["title", "genre"]
             }
         },
-        "size": 10
+        "size": 5
     }
     res = []
     results = es.search(index=index, body=query)
     for hit in results["hits"]["hits"]:
-        print(hit["_source"])
         res.append(hit["_source"])
     return res
