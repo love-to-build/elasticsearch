@@ -31,7 +31,7 @@ def autocomplete_helper(query):
     i = 1
     for suggestion in suggestions:
         temp = {}
-        temp['lable'] = suggestion["text"]
+        temp['label'] = suggestion["text"]
         temp['value'] = suggestion['_id']
         titles.append(temp)
 
@@ -44,10 +44,10 @@ def string_query_search(query):
             "query_string": {
                 "analyze_wildcard": True,
                 "query": query,
-                "fields": ["title", "genre"]
+                "fields": ["title", "genre", "desc"]
             }
         },
-        "size": 5
+        "size": 10
     }
     res = []
     results = es.search(index=index, body=query)

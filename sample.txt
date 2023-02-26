@@ -1,0 +1,10 @@
+materials
+
+motors 4
+servo moto 1
+motor driver 1
+bluetooth sensor 1
+wifi module 1
+battery charger 
+batery pack 
+veichel chase
